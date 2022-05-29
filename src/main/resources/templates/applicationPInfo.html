@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о заметки</title>
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>-->
+    <link th:href="@{/styles/cssandjs/form.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/menuline.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/table.css}" rel="stylesheet">
+</head>
+<body>
+<ul>
+    <li><a th:href="@{/index}">Главная</a></li>
+    <li><a th:href="@{/recordList}">Назад</a></li>
+</ul>
+<br/><br/>
+<div th:if="${applicationP}">
+    <table class="table_price" border="0">
+        <caption>Информация о заявке</caption>
+        <tr>
+            <td>ID</td>
+            <td>:</td>
+            <td th:utext="${applicationP.id}">...</td>
+        </tr>
+        <tr>
+            <td>Клиент</td>
+            <td>:</td>
+            <td th:utext="${applicationP.customer}">...</td>
+        </tr>
+        <tr>
+            <td>Адрес посадки</td>
+            <td>:</td>
+            <td th:utext="${applicationP.boardingAddress}">...</td>
+        </tr>
+        <tr>
+            <td>Адрес назначения</td>
+            <td>:</td>
+            <td th:utext="${applicationP.destinationAddress}">...</td>
+        </tr>
+        <tr>
+            <td>Число пассажиров</td>
+            <td>:</td>
+            <td th:utext="${applicationP.numberPassengers}">...</td>
+        </tr>
+        <tr>
+            <td>
+                <div th:if="not ${allowDelete}">
+                    <a th:href="@{/applicationPInfo/{id}/delete(id=${applicationP.id})}">Удалить</a>
+                </div>
+                <form th:if="${allowDelete}" th:action="@{/applicationPInfo/{id}/delete(id=${applicationP.id})}" method="POST">
+                    <div class="form-inner">
+                        Удалить заявку? <input type="submit" th:value="Yes" />
+                    </div>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}" class="error"></div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список водителей</title>
+    <link th:href="@{/styles/cssandjs/form.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/menuline.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/table.css}" rel="stylesheet">
+</head>
+<body>
+<ul>
+    <li><a th:href="@{/index}">Главная</a></li>
+    <li><a th:href="@{/addDriver}">Добавить водителя</a></li>
+</ul>
+<br/><br/>
+<div>
+    <table class="table_price" border="1" th:id="driver-table">
+        <caption>Водители</caption>
+        <tr>
+            <th>Полное имя</th>
+        </tr>
+        <tr th:each="driver: ${drivers}" th:id="driver-list">
+            <td><a th:href="@{/driverInfo/{id}(id=${driver.id})}" th:utext="${driver.fullName}"></a></td>
+            <td><a th:href="@{/driverInfo/{id}/edit(id=${driver.id})}">Изменить</a></td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

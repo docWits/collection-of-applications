@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о транспорте</title>
+<!--    <link rel="stylesheet" type="text/css" href="../static/css/styles/form.css">-->
+<!--    <link rel="stylesheet" type="text/css" href="../static/css/styles/menuline.css">-->
+    <link th:href="@{/styles/cssandjs/form.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/menuline.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/table.css}" rel="stylesheet">
+<!--    <link rel="stylesheet" type="text/css" href="../static/css/styles/table.css">-->
+</head>
+<body>
+<ul>
+    <li><a th:href="@{/index}">Главная</a></li>
+    <li><a th:href="@{/autoList}">Назад</a></li>
+</ul>
+<br/><br/>
+<div th:if="${auto}">
+    <table th:class="table_price" border="0">
+        <caption>Информация о транспорте</caption>
+        <tr>
+            <td>ID</td>
+            <td>:</td>
+            <td th:utext="${auto.id}">...</td>
+        </tr>
+        <tr>
+            <td>Номер</td>
+            <td>:</td>
+            <td th:utext="${auto.number}">...</td>
+        </tr>
+        <tr>
+            <td>Производитель</td>
+            <td>:</td>
+            <td th:utext="${auto.brand}">...</td>
+        </tr>
+        <tr>
+            <td>Тип</td>
+            <td>:</td>
+            <td th:utext="${auto.type}">...</td>
+        </tr>
+        <tr>
+            <td>Дата выпуска</td>
+            <td>:</td>
+            <td th:data="${auto.releaseDate}">...</td>
+        </tr>
+        <tr>
+            <td>WIN</td>
+            <td>:</td>
+            <td th:utext="${auto.WIN}">...</td>
+        </tr>
+        <tr>
+            <td>
+                <div th:if="not ${allowDelete}">
+                    <a th:href="@{/autoInfo/{id}/delete(id=${auto.id})}">Удалить</a>
+                </div>
+                <form th:if="${allowDelete}" th:action="@{/autoInfo/{id}/delete(id=${auto.id})}" method="POST">
+                    <div class="form-inner">
+                        Удалить информацию о транспорте? <input type="submit" th:value="Yes" />
+                    </div>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить</title>
+    <link th:href="@{/styles/cssandjs/form.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/menuline.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/table.css}" rel="stylesheet">
+</head>
+<body>
+<ul>
+    <li><a th:href="@{/index}">Главная</a></li>
+    <li><a th:href="@{/driverList}">Назад</a></li>
+</ul>
+<form class="decor" th:action="@{/addDriver}" th:object="${driver}" method="post">
+    <div class="form-left-decoration"></div>
+    <div class="form-right-decoration"></div>
+    <div class="circle"></div>
+    <div class="form-inner">
+        <h3>Новый водитель</h3>
+        <input type="text" placeholder="Полное имя" th:field="*{fullName}"/>
+        <input type="text" placeholder="Водительские права" th:field="*{driverLicense}"/>
+        <input type="submit" value="Внести"/>
+    </div>
+</form>
+</body>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red;font-style: italic">
+</div>
+</html>

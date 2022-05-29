@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить</title>
+    <link th:href="@{/styles/cssandjs/form.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/menuline.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/table.css}" rel="stylesheet">
+</head>
+<body>
+<ul>
+    <li><a th:href="@{/index}">Главная</a></li>
+    <li><a th:href="@{/autoList}">Назад</a></li>
+</ul>
+<form class="decor" th:action="@{/addAuto}" th:object="${auto}" method="post">
+    <div class="form-left-decoration"></div>
+    <div class="form-right-decoration"></div>
+    <div class="circle"></div>
+    <div class="form-inner">
+        <h3>Новый автотранспорт </h3>
+        <input type="text" placeholder="Номер авто" th:field="*{number}"/>
+        <input type="text" placeholder="Производитель" th:field="*{brand}"/>
+        <select  th:field="*{type}">
+            <option value="">--</option>
+            <option th:each="type:${typeList}"
+                    th:value="${type.toString()}"
+                    th:utext="${type.toString()}">
+            </option>
+        </select>
+        <input type="date" th:field="*{releaseDate}">
+        <input type="text" placeholder="WIN" th:field="*{WIN}">
+        <input type="submit" value="Внести"/>
+    </div>
+</form>
+</body>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red;font-style: italic">
+</div>
+</html>

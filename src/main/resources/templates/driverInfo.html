@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о водителе</title>
+    <link th:href="@{/styles/cssandjs/form.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/menuline.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/table.css}" rel="stylesheet">
+</head>
+<body>
+<ul>
+    <li><a th:href="@{/index}">Главная</a></li>
+    <li><a th:href="@{/driverList}">Назад</a></li>
+</ul>
+<br/><br/>
+<div th:if="${driver}">
+    <table class="table_price" border="0">
+        <caption>Информация о водителе</caption>
+        <tr>
+            <td>ID</td>
+            <td>:</td>
+            <td th:utext="${driver.id}">...</td>
+        </tr>
+        <tr>
+            <td>Полное имя</td>
+            <td>:</td>
+            <td th:utext="${driver.fullName}">...</td>
+        </tr>
+        <tr>
+            <td>Водительские права</td>
+            <td>:</td>
+            <td th:utext="${driver.driverLicense}">...</td>
+        </tr>
+        <tr>
+            <td>
+                <div th:if="not ${allowDelete}">
+                    <a th:href="@{/driverInfo/{id}/delete(id=${driver.id})}">Удалить</a>
+                </div>
+                <form th:if="${allowDelete}" th:action="@{/driverInfo/{id}/delete(id=${driver.id})}" method="POST">
+                    <div class="form-inner">
+                        Удалить информацию о водителе? <input type="submit" th:value="Yes" />
+                    </div>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}" class="error"></div>
+</body>
+</html>

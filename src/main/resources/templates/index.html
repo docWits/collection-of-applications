@@ -9,11 +9,14 @@
 </head>
 <body>
 <ul >
-    <li><a th:href="@{/}">Заказать грузовую перевозку</a></li>
-    <li><a th:href="@{/}">Заказать пассажирскую перевозку</a></li>
+    <li><a th:href="@{/addApplicationT}">Заказать грузовую перевозку</a></li>
+    <li><a th:href="@{/addApplicationP}">Заказать пассажирскую перевозку</a></li>
     <li><a th:href="@{/driverList}">Список водителей</a></li>
     <li><a th:href="@{/autoList}">Список транспорта</a></li>
 </ul>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
 <h1 align="center">Автопредприятие для грузовых и пассажирских перевозок</h1>
 <br>
 </body>

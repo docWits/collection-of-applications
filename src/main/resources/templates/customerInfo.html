@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link th:href="@{/styles/cssandjs/form.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/menuline.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/table.css}" rel="stylesheet">
+</head>
+<body>
+<ul>
+    <li><a th:href="@{/index}">Главная</a></li>
+</ul>
+<div th:if="${customer}">
+    <table class="table_price" border="0">
+        <caption>Ваш профиль</caption>
+        <tr>
+            <td>Полное имя</td>
+            <td>:</td>
+            <td th:utext="${customer.fullName}">...</td>
+        </tr>
+        <tr>
+            <td>Телефон</td>
+            <td>:</td>
+            <td th:utext="${customer.phone}">...</td>
+        </tr>
+        <tr>
+            <td>
+                <div th:if="not ${allowDelete}">
+                    <a th:href="@{/customerInfo/{id}/delete(id=${customer.id})}">Закрыть профиль</a>
+                </div>
+                <form th:if="${allowDelete}" th:action="@{/customerInfo/{id}/delete(id=${customer.id})}" method="POST">
+                    <div class="form-inner">
+                        Вы уверены, что хотите закрыть профиль? <input type="submit" th:value="Yes" />
+                    </div>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<div th:if="${errorMessage}" th:utext="${errorMessage}" class="error"></div>
+</body>
+</html>

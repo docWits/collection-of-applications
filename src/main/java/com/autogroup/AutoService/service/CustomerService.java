@@ -11,5 +11,6 @@ public interface CustomerService {
     List<Customer> getAllCustomer();
     Customer addCustomer(Customer customer);
     Customer getById(Long id);
+    Customer getLogin(String login);
     void deleteCustomer(Long id);
 }

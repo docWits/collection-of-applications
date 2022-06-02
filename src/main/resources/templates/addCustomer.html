@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить</title>
+    <link th:href="@{/styles/cssandjs/form.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/menuline.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/table.css}" rel="stylesheet">
+</head>
+<body>
+<ul>
+    <li><a th:href="@{/index}">Главная</a></li>
+</ul>
+<form class="decor" th:action="@{addCustomer}" th:object="${customer}" method="post">
+    <div class="form-left-decoration"></div>
+    <div class="form-right-decoration"></div>
+    <div class="circle"></div>
+    <div class="form-inner">
+        <h3>Регистрация</h3>
+        <input type="text" placeholder="Логин" th:field="*{login}"/>
+        <input type="password" th:field="*{password}">
+        <input type="text" placeholder="Имя пользователя" th:field="*{fullName}"/>
+        <input type="text" placeholder="Телефон" th:field="*{phone}"/>
+        <input type="submit" value="Зарегистрироваться">
+    </div>
+</form>
+</body>
+<div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color: red;font-style: italic">
+</div>
+</html>

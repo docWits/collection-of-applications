@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Войти </title>
+    <link th:href="@{/styles/cssandjs/form.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/menuline.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/table.css}" rel="stylesheet">
+</head>
+<body>
+<ul >
+    <li><a th:href="@{/addCustomer}">Регистрация пользователя</a></li>
+</ul>
+<form th:action="@{/login}" method="post">
+    <div><label> User Name : <input type="text" name="username"/> </label></div>
+    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div><input type="submit" value="Sign In"/></div>
+</form>
+</body>
+</html>

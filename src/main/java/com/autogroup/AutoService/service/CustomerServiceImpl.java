@@ -33,6 +33,11 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    public Customer getLogin(String login) {
+        return customerRepository.findByLogin(login);
+    }
+
+    @Override
     public void deleteCustomer(Long id) {
         customerRepository.deleteById(id);
     }

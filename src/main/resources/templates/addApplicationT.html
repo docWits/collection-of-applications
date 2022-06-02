@@ -11,15 +11,15 @@
 <ul>
     <li><a href="index">Главная</a></li>
 </ul>
-<form class="decor" th:action="@{/addApplicationP}" th:object="${applicationP}" method="post">
+<form class="decor" th:action="@{/addApplicationT}" th:object="${applicationT}" method="post">
     <div class="form-left-decoration"></div>
     <div class="form-right-decoration"></div>
     <div class="circle"></div>
     <div class="form-inner">
         <h3>Ваша заявка</h3>
-        <input type="text" placeholder="Адрес посадки" th:field="*{boardingAddress}"/>
-        <input type="text" placeholder="Адрес назначения" th:field="*{destinationAddress}"/>
-        <input type="text" placeholder="Число пассажиров" th:field="*{numberPassengers}"/>
+        <input type="text" placeholder="Адрес погрузки" th:field="*{loadingAddress}"/>
+        <input type="text" placeholder="Адрес доставки" th:field="*{deliveryAddress}"/>
+        <input type="text" placeholder="Вес груза" th:field="*{weight}"/>
         <textarea placeholder="Пожелания" rows="3" th:field="*{wishes}"></textarea>
         <input type="submit" value="Создать"/>
     </div>

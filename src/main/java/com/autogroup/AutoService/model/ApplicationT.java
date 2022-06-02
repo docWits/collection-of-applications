@@ -13,6 +13,8 @@ public class ApplicationT {
 
     private String deliveryAddress;
 
+    private int weight;
+
     private String wishes;
 
     @ManyToOne
@@ -60,5 +62,13 @@ public class ApplicationT {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 }

@@ -2,7 +2,9 @@ package com.autogroup.AutoService.controller;
 
 import com.autogroup.AutoService.model.Auto;
 import com.autogroup.AutoService.model.Customer;
+import com.autogroup.AutoService.model.Role;
 import com.autogroup.AutoService.service.CustomerService;
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.Collections;
+
 @Controller
-@RequestMapping(value = "/customer")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -53,11 +56,17 @@ public class CustomerController {
     @RequestMapping(value = {"/addCustomer"},method = RequestMethod.POST)
     public String saveCustomer(Model model, @ModelAttribute("customer") Customer customer){
 
+        Customer customerFromDB = customerService.getLogin(customer.getLogin());
+        if (customerFromDB != null){
+            model.addAttribute("errorMessage","User exist");
+            return "redirect:/index";
+        }
         try {
-            if(customer != null){
-                customerService.addCustomer(customer);
-            }
-            return "redirect:/customerList";
+            customer.setActive(true);
+            customer.setRoles(Collections.singleton(Role.USER));
+            customerService.addCustomer(customer);
+
+            return "redirect:/index";
         }catch (Exception ex){
             model.addAttribute("errorMessage","errorMessage");
             return "addCustomer";

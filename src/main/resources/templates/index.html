@@ -6,6 +6,7 @@
     <link th:href="@{/styles/cssandjs/form.css}" rel="stylesheet">
     <link th:href="@{/styles/cssandjs/menuline.css}" rel="stylesheet">
     <link th:href="@{/styles/cssandjs/table.css}" rel="stylesheet">
+    <link th:href="@{/styles/cssandjs/slyder.css}" rel="stylesheet">
 </head>
 <body>
 <ul >
@@ -19,5 +20,17 @@
 </form>
 <h1 align="center">Автопредприятие для грузовых и пассажирских перевозок</h1>
 <br>
+<div class="wrapper">
+    <input type="radio" name="point" id="slide1" checked>
+    <input type="radio" name="point" id="slide2">
+    <div class="slider">
+        <div class="slides slide1"></div>
+        <div class="slides slide2"></div>
+    </div>
+    <div class="controls">
+        <label for="slide1"></label>
+        <label for="slide2"></label>
+    </div>
+</div>
 </body>
 </html>

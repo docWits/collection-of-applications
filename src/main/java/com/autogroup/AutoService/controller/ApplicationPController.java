@@ -1,8 +1,13 @@
 package com.autogroup.AutoService.controller;
 
 import com.autogroup.AutoService.model.ApplicationP;
+import com.autogroup.AutoService.model.Customer;
 import com.autogroup.AutoService.service.ApplicationPService;
+import com.autogroup.AutoService.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ApplicationPController {
 
     private final ApplicationPService applicationPService;
+    private final CustomerService customerService;
 
     @Autowired
-    public ApplicationPController(ApplicationPService applicationPService) {
+    public ApplicationPController(ApplicationPService applicationPService, CustomerService customerService) {
         this.applicationPService = applicationPService;
+        this.customerService = customerService;
     }
 
     @RequestMapping(value = {"/applicationPList"},method = RequestMethod.GET)
@@ -50,10 +57,13 @@ public class ApplicationPController {
 
 
     @RequestMapping(value = {"/addApplicationP"},method = RequestMethod.POST)
-    public String saveApplication(Model model, @ModelAttribute("recordRequest") ApplicationP recordRequest){
+    public String saveApplication(Model model, @ModelAttribute("recordRequest") ApplicationP recordRequest,@AuthenticationPrincipal User user){
 
         try {
+            Customer customer = customerService.getLogin(user.getUsername());
+
             if(recordRequest != null){
+                recordRequest.setCustomer(customer);
                 applicationPService.addApplicationP(recordRequest);
             }
             return "redirect:/index";

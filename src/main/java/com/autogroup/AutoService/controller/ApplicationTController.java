@@ -2,9 +2,13 @@ package com.autogroup.AutoService.controller;
 
 import com.autogroup.AutoService.model.ApplicationP;
 import com.autogroup.AutoService.model.ApplicationT;
+import com.autogroup.AutoService.model.Customer;
 import com.autogroup.AutoService.service.ApplicationPService;
 import com.autogroup.AutoService.service.ApplicationTService;
+import com.autogroup.AutoService.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ApplicationTController {
 
     private final ApplicationTService applicationTService;
+    private final CustomerService customerService;
 
     @Autowired
-    public ApplicationTController(ApplicationTService applicationTService) {
+    public ApplicationTController(ApplicationTService applicationTService, CustomerService customerService) {
         this.applicationTService = applicationTService;
+        this.customerService = customerService;
     }
 
     @RequestMapping(value = {"/applicationTList"},method = RequestMethod.GET)
@@ -52,10 +58,12 @@ public class ApplicationTController {
 
 
     @RequestMapping(value = {"/addApplicationT"},method = RequestMethod.POST)
-    public String saveApplication(Model model, @ModelAttribute("applicationT") ApplicationT applicationT){
+    public String saveApplication(Model model, @ModelAttribute("applicationT") ApplicationT applicationT,@AuthenticationPrincipal User user){
 
         try {
+            Customer customer = customerService.getLogin(user.getUsername());
             if(applicationT != null){
+                applicationT.setCustomer(customer);
                 applicationTService.addApplicationT(applicationT);
             }
             return "redirect:/index";
@@ -83,10 +91,10 @@ public class ApplicationTController {
     public String deleteApplicationTById(Model model, @PathVariable Long id){
         try {
             applicationTService.deleteApplicationT(id);
-            return "redirect:/applicationPList";
+            return "redirect:/applicationTList";
         }catch (Exception ex){
             model.addAttribute("errorMessage","errorMessage");
-            return "applicationPInfo";
+            return "applicationTInfo";
         }
     }
 }
